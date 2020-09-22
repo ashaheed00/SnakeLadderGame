@@ -17,7 +17,8 @@ public class SnakeLadder {
 			case NO_PLAY:
 				break;
 			case LADDER:
-				position += rollDice;
+				if(position + rollDice <= 100)
+					position += rollDice;
 				break;
 			case SNAKE:
 				position -= rollDice;
