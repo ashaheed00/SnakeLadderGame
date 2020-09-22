@@ -1,39 +1,48 @@
-//Current Version UC6
+//Current Version UC7
 
 public class SnakeLadder {
-
+	
 	final static short LADDER = 1;
 	final static short SNAKE = 2;
 	final static short NO_PLAY = 0;
 	static short option;
-	static int position = 0;
+	static int positionA = 0;
+	static int positionB = 0;
 	static short rollDice;
 
-	public static void main(String[] args) {
+	public static int play(int position) {
+
+		if (position == 100)
+			return position;
 		
-		int count = 0;
-		while (position < 100) {
-			rollDice = (short) ((Math.random() * 10 % 6) + 1);
-			option = (short) (Math.random() * 10 % 3);
+		rollDice = (short) ((Math.random() * 10 % 6) + 1);
+		option = (short) (Math.random() * 10 % 3);
 
-			switch (option) {
-			case NO_PLAY:
-				break;
-			case LADDER:
-				if(position + rollDice <= 100)
-					position += rollDice;
-				break;
-			case SNAKE:
+		switch (option) {
+		case NO_PLAY:
+			break;
+		case LADDER:
+			if (position + rollDice <= 100)
+				position += rollDice;
+			play(position);
+			break;
+		case SNAKE:
+			if (position - rollDice > 0)
 				position -= rollDice;
-				if (position < 0)
-					position = 0;
-				break;
-			}
-			count++;
-			System.out.println("Position after each roll: " + position);
+			else
+				position = 0;
+			break;
 		}
+		return position;
+	}
 
-		System.out.println("Player has reached the final destination.");
-		System.out.println("It took " + count + " times of dice rolling to win.");
+	public static void main(String[] args) {
+
+		while (positionA < 100 && positionB < 100) {
+			positionA = play(positionA);
+			positionB = play(positionB);
+		}
+		
+		System.out.println("The Winner: Player " + (positionA == 100 ? "A" : "B"));
 	}
 }
