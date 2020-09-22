@@ -1,3 +1,5 @@
+//Current Version UC6
+
 public class SnakeLadder {
 
 	final static short LADDER = 1;
@@ -8,7 +10,8 @@ public class SnakeLadder {
 	static short rollDice;
 
 	public static void main(String[] args) {
-
+		
+		int count = 0;
 		while (position < 100) {
 			rollDice = (short) ((Math.random() * 10 % 6) + 1);
 			option = (short) (Math.random() * 10 % 3);
@@ -26,8 +29,11 @@ public class SnakeLadder {
 					position = 0;
 				break;
 			}
+			count++;
+			System.out.println("Position after each roll: " + position);
 		}
 
 		System.out.println("Player has reached the final destination.");
+		System.out.println("It took " + count + " times of dice rolling to win.");
 	}
 }
